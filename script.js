@@ -1,42 +1,49 @@
-const searchFrom = document.querySelector('.search');
-const input = document.querySelector('.input');
-const newsList = document.querySelector('.news-list');
+const selectCountry = document.querySelector('#top-stories-countries');
+const topStories = document.querySelector('#top-stories')
+// const searchFrom = document.querySelector('.search');
+// const input = document.querySelector('.input');
+// const newsList = document.querySelector('.news-list');
 const apiToken = 'JQwKBt3SpUJsKPGuzxCaTg4TPc2WG95U7UvKGLle'
 
 
-searchFrom.addEventListener('submit', retrieveTopStories);
+selectCountry.addEventListener('change', retrieveTopStories);
 
 function retrieveTopStories(e) {
 
-    if (input.value === '') {
-        alert('Input field is empty!');
-        return
-    }
+    // if (input.value === '') {
+    //     alert('Input field is empty!');
+    //     return
+    // }
 
-    newsList.innerHTML = ''
+    // newsList.innerHTML = ''
 
     e.preventDefault();
 
-    let topic = input.value;
+    let locale = selectCountry.value;
 
-    let url = `https://api.thenewsapi.com/v1/news/top?api_token=${apiToken}&locale=us&limit=5&search=${topic}`
+    let url = `https://api.thenewsapi.com/v1/news/top?api_token=${apiToken}&locale=us&limit=5&locale=${locale}`
 
-    fetch(url).then((response) => {
-        return response.json();
-    }).then((response) => {
-        console.log(response);
-        response.data.forEach(article => {
-            let li = document.createElement('li');
-            let a = document.createElement('a');
-            a.setAttribute('href', article.url);
-            a.setAttribute('target', '_blank');
-            a.textContent = article.title;
-            li.appendChild(a);
-            newsList.appendChild(li);
+    fetch(url)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+            const cards = response.data.map(article => {
+                return `
+                <div class="card" style="width: 16rem;">
+                <a href="${article.url}" target='_blank'><img src="${article.image_url}" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <a href="${article.url}" target='_blank'><h5 class="card-title">${article.title}</h5></a>
+                        <p class="card-text">${article.description}</p>
+                    </div>
+                </div>
+                `
+            })
+        topStories.innerHTML = cards.join('')
+
+
+        }).catch((error) => {
+            console.log(error);
         })
-    }).catch((error) => {
-        console.log(error);
-    })
 }
 
 
