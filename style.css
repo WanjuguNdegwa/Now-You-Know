@@ -1,7 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Arapey&family=Playfair+Displaydisplay=swap');
+
 * { 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     list-style: none;
+}
 
+h2 {
+    color: firebrick;
+}
+
+h5 {
+    color: #121212;
+    font-family: 'Arapey', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+p {
+    color: #5A5A5A;
+    font-weight: 300;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header {
+    font-family: 'Playfair Display', serif;
+    color:firebrick;
+}
+
+.category-button {
+    margin: 3px 10px;
+}
+
+.center-horizontal {
+    margin: 0 auto;
 }
