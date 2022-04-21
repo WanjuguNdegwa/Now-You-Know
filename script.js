@@ -2,14 +2,26 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const apiKey = '7faa108fc7ec4cb3bcf3b5aa7e0c4ec8'
 
     const selectCountry = document.querySelector('#top-stories-countries');
-    const topStories = document.querySelector('#top-stories')
+    const topStories = document.querySelector('#top-stories');
+    const search = document.getElementById('search');
+    const loadingAnimation = document.getElementById('loading')
 
-    function retrieveTopStories(category = 'general') {
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
 
-        let country = selectCountry.value;
+    function retrieveTopStories({category, query, country}) {
+        removeAllChildNodes(topStories);
+        loadingAnimation.style.display = 'inline-block';
+
+        category = category || '';
+        query = query || search.value;
+        country = country || selectCountry.value;
 
         let url = `https://newsapi.org/v2/top-headlines?
-                    q=&
+                    q=${query}&
                     apiKey=${apiKey}&
                     country=${country}&
                     category=${category}&
@@ -32,6 +44,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 </div>
                 `
                     })
+                    loadingAnimation.style.display = 'none';
                 topStories.innerHTML = cards.join('')
 
 
@@ -42,7 +55,17 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     selectCountry.addEventListener('change', (e) => {
         e.preventDefault();
-        retrieveTopStories();
+        const country = e.target.value;
+        retrieveTopStories({country});
+    });
+
+    search.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.value.length > 0) {
+            e.preventDefault();
+            const query = e.target.value;
+            retrieveTopStories({query})
+        }
+
     });
 
     document.querySelectorAll('.category-button').forEach(button => {
@@ -50,9 +73,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
             e.preventDefault();
             let category = e.target.textContent;
             category = category === 'World' ? 'general' : category;
-            retrieveTopStories(category.toLowerCase());
+            retrieveTopStories({category: category.toLowerCase()});
         })
     })
 
-    retrieveTopStories()
+    retrieveTopStories({})
 })

@@ -53,6 +53,10 @@
                         <a class="category-button">Technology</a>
                     </li>
                 </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-5" type="search" id="search" placeholder="Search" aria-label="Search">
+                </form>
             </div>
         </div>
     </nav>
@@ -62,6 +66,7 @@
             <form action="">
                 <label for="top-stories-countries">Select Country</label>
                 <select name="countries" id="top-stories-countries">
+                    <option value="">world</option>
                     <option value="us" selected>us</option>
                     <option value="ae">ae</option>
                     <option value="ar">ar</option>
@@ -118,8 +123,8 @@
                     <option value="za">za</option>
                 </select>
             </form>
+            <div id="loading"></div>
             <div class="row" id="top-stories">
-
             </div>
         </div>
         <div>
