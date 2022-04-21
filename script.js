@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 <a href="${article.url}" target='_blank'><img src="${article.urlToImage}" class="card-img-top" alt="..."></a>
                     <div class="card-body">
                         <a href="${article.url}" target='_blank'><h5 class="card-title">${article.title}</h5></a>
-                        <p class="card-text">${article.content}</p>
+                        <p class="card-text">${stripHtml(article.content)}</p>
+                        <a href="https://twitter.com/intent/tweet?text=${article.title}&url=${article.url}&hashtags=NowYouKnow">Tweet</a>
                     </div>
                 </div>
                 `
@@ -79,3 +80,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     retrieveTopStories({})
 })
+
+function stripHtml(html){
+    let doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+ }
