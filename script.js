@@ -38,22 +38,24 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     .filter(article => article.content !== null && article.urlToImage !== null)
                     .map(article => {
                         return `
-                <div class="card my-3" style="width: 16rem;">
-                    <div style="height: 150;">
-                        <a href="${article.url}" target='_blank'><img src="${article.urlToImage}" class="card-img-top" style="width: 100%;"></a>
-                    </div>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <a href="${article.url}" target='_blank'><h5 class="card-title">${article.title}</h5></a>
-                        <p class="card-text">${stripHtml(article.content)}</p>
-                        <div>
-                            <a href="https://twitter.com/intent/tweet?text=${article.title}&url=${article.url}&hashtags=NowYouKnow">
-                                <i class="fa-brands fa-twitter"></i>
-                            </a>
-                            <span class="like"><i class="fa-solid fa-heart"></i></span>
+                        <div class="card my-3" style="width: 16rem;">
+                            <div style="height: 150;">
+                                <a href="${article.url}" target='_blank'>
+                                    <img src="${article.urlToImage}" class="card-img-top" style="width: 100%;">
+                                </a>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <a href="${article.url}" target='_blank'><h5 class="card-title">${article.title}</h5></a>
+                                <p class="card-text">${stripHtml(article.content)}</p>
+                                <div>
+                                    <a href="https://twitter.com/intent/tweet?text=${article.title}&url=${article.url}&hashtags=NowYouKnow">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </a>
+                                    <span class="like"><i class="fa-solid fa-heart"></i></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                `
+                        `
                     })
                 loadingAnimation.style.display = 'none';
                 topStories.innerHTML = cards.join('')
