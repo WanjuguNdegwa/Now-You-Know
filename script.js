@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         category = category || document.querySelector('.category-button.active').textContent;
         query = query || search.value;
         country = country || selectCountry.value;
-        let proxy = 'https://cors-proxy.htmldriven.com/?url='
+        let proxy = 'https://api.allorigins.win/get?url='
         let url = `${proxy}https://newsapi.org/v2/top-headlines?
                     q=${query}&
                     apiKey=${apiKey}&
