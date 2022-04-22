@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     const selectCountry = document.querySelector('#top-stories-countries');
     const topStories = document.querySelector('#top-stories');
-    const search = document.getElementById('search');
+    const searchInput = document.getElementById('search');
     const loadingAnimation = document.getElementById('loading')
     let likeButtons;
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         loadingAnimation.style.display = 'inline-block';
 
         category = category || document.querySelector('.category-button.active').textContent;
-        query = query || search.value;
+        query = query || searchInput.value;
         country = country || selectCountry.value;
         let proxy = 'https://api.allorigins.win/get?url='
         let url = `https://newsapi.org/v2/top-headlines?
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         retrieveTopStories({ country });
     });
 
-    search.addEventListener('keydown', (e) => {
+    searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.target.value.length > 0) {
             e.preventDefault();
             const query = e.target.value;
