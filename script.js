@@ -22,18 +22,19 @@ document.addEventListener('DOMContentLoaded', (e) => {
         query = query || search.value;
         country = country || selectCountry.value;
         let proxy = 'https://api.allorigins.win/get?url='
-        let url = proxy + encodeURIComponent(`https://newsapi.org/v2/top-headlines?
+        let url = `https://newsapi.org/v2/top-headlines?
                     q=${query}&
                     apiKey=${apiKey}&
                     country=${country}&
                     category=${category}&
-                    limit=15`);
-        url = url.replace(/\s/g, '');
+                    limit=15`;
+        url = proxy + encodeURIComponent(url.replace(/\s/g, ''));
 
         fetch(url)
             .then((response) => response.json())
             .then((response) => {
-                const cards = response.articles
+                const articles = JSON.parse(response.contents).articles;
+                const cards = articles
                     .filter(article => article.content !== null && article.urlToImage !== null)
                     .map(article => {
                         return `
