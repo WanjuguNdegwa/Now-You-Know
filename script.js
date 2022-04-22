@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const loadingAnimation = document.getElementById('loading')
     let likeButtons;
 
-    console.log(likeButtons)
-
     
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
@@ -20,7 +18,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         removeAllChildNodes(topStories);
         loadingAnimation.style.display = 'inline-block';
 
-        category = category || '';
+        category = category || document.querySelector('.category-button.active').textContent;
         query = query || search.value;
         country = country || selectCountry.value;
 
@@ -36,7 +34,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             .then((response) => response.json())
             .then((response) => {
                 const cards = response.articles
-                    .filter(article => article.content !== null)
+                    .filter(article => article.content !== null && article.urlToImage !== null)
                     .map(article => {
                         return `
                 <div class="card" style="width: 16rem;">
@@ -86,6 +84,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
             let category = e.target.textContent;
             category = category === 'World' ? 'general' : category;
             retrieveTopStories({ category: category.toLowerCase() });
+
+            const current = document.querySelector('.active');
+            current.classList.remove('active');
+            button.classList.add('active');
         })
     })
 
