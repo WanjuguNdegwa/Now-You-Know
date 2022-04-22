@@ -5,14 +5,18 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const topStories = document.querySelector('#top-stories');
     const search = document.getElementById('search');
     const loadingAnimation = document.getElementById('loading')
+    let likeButtons;
 
+    console.log(likeButtons)
+
+    
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
     }
 
-    function retrieveTopStories({category, query, country}) {
+    function retrieveTopStories({ category, query, country }) {
         removeAllChildNodes(topStories);
         loadingAnimation.style.display = 'inline-block';
 
@@ -40,15 +44,22 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     <div class="card-body">
                         <a href="${article.url}" target='_blank'><h5 class="card-title">${article.title}</h5></a>
                         <p class="card-text">${stripHtml(article.content)}</p>
-                        <a href="https://twitter.com/intent/tweet?text=${article.title}&url=${article.url}&hashtags=NowYouKnow">Tweet</a>
+                        <a href="https://twitter.com/intent/tweet?text=${article.title}&url=${article.url}&hashtags=NowYouKnow">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <span class="like"><i class="fa-solid fa-heart"></i></span>
                     </div>
                 </div>
                 `
                     })
-                    loadingAnimation.style.display = 'none';
+                loadingAnimation.style.display = 'none';
                 topStories.innerHTML = cards.join('')
-
-
+                likeButtons = document.getElementsByClassName('like')
+                for (let likeButton of likeButtons) {
+                    likeButton.addEventListener('click', (e)=>{
+                        likeButton.classList.toggle('red');
+                    });
+                }
             }).catch((error) => {
                 console.log(error);
             })
@@ -57,14 +68,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
     selectCountry.addEventListener('change', (e) => {
         e.preventDefault();
         const country = e.target.value;
-        retrieveTopStories({country});
+        retrieveTopStories({ country });
     });
 
     search.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.target.value.length > 0) {
             e.preventDefault();
             const query = e.target.value;
-            retrieveTopStories({query})
+            retrieveTopStories({ query })
         }
 
     });
@@ -74,14 +85,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
             e.preventDefault();
             let category = e.target.textContent;
             category = category === 'World' ? 'general' : category;
-            retrieveTopStories({category: category.toLowerCase()});
+            retrieveTopStories({ category: category.toLowerCase() });
         })
     })
 
     retrieveTopStories({})
 })
 
-function stripHtml(html){
+function stripHtml(html) {
     let doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent || "";
- }
+}

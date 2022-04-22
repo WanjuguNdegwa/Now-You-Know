@@ -40,6 +40,14 @@ header {
     margin: 0 auto;
 }
 
+.like {
+    cursor: pointer;
+}
+
+.red {
+    color: firebrick;
+}
+
 #loading {
     display: none;
     width: 50px;
