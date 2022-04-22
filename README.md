@@ -5,6 +5,14 @@ This is a news aggregator website, known as 'Now You Know'. It uses the [newsapi
 
 [Link to live site](https://wanjugundegwa.github.io/Now-You-Know/)
 
+## Features
+* Users can view top stories globally
+* Users can filter top stories by country
+* Users can filter news articles by category
+* Users can search worldwide news by keyword or phrase
+* Users can share news articles on twitter
+* Users can like their favourite news articles
+
 ## Installation Requirements
 You need a modern web browser and an internet connection to view the project on your computer. To make any changes you need a text editor like VS Code.
 
