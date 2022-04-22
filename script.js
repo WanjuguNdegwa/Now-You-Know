@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const loadingAnimation = document.getElementById('loading')
     let likeButtons;
 
-    
+
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 topStories.innerHTML = cards.join('')
                 likeButtons = document.getElementsByClassName('like')
                 for (let likeButton of likeButtons) {
-                    likeButton.addEventListener('click', (e)=>{
+                    likeButton.addEventListener('click', (e) => {
                         likeButton.classList.toggle('red');
                     });
                 }
