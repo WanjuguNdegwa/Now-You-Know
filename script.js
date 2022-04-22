@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         query = query || search.value;
         country = country || selectCountry.value;
 
-        let url = `http://newsapi.org/v2/top-headlines?
+        let url = `https://newsapi.org/v2/top-headlines?
                     q=${query}&
                     apiKey=${apiKey}&
                     country=${country}&
