@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
         query = query || search.value;
         country = country || selectCountry.value;
         let proxy = 'https://api.allorigins.win/get?url='
-        let url = `${proxy}https://newsapi.org/v2/top-headlines?
+        let url = proxy + encodeURIComponent(`https://newsapi.org/v2/top-headlines?
                     q=${query}&
                     apiKey=${apiKey}&
                     country=${country}&
                     category=${category}&
-                    limit=15`;
+                    limit=15`);
         url = url.replace(/\s/g, '');
 
         fetch(url)
